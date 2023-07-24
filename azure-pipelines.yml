@@ -14,7 +14,7 @@ variables:
   imageRepository: 'rinshaddockernodejs2'
   containerRegistry: 'registry001100.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: 'v2'
+  tag: 'latest'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
