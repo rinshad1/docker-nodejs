@@ -14,7 +14,8 @@ variables:
   imageRepository: 'rinshaddockernodejs2'
   containerRegistry: 'registry001100.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: 'latest'
+  tag1: 'latest'
+  tag2: '$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -36,4 +37,5 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tag1)
+          $(tag2)
