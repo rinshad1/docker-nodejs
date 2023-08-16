@@ -27,15 +27,9 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'aws ecr'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
     - task: ECRPushImage@1
       inputs:
         awsCredentials: 'AWS Credential1'
         regionName: 'us-east-1'
         imageSource: 'imagename'
-        #sourceImageName: 'azurenodejsapp'
         repositoryName: 'repo1'
