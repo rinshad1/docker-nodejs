@@ -34,6 +34,6 @@ stages:
         awsCredentials: 'AWS Credential1'
         regionName: 'us-east-1'
         imageSource: 'imagename'
-        sourceImageName: '659441282798.dkr.ecr.us-east-1.amazonaws.com'
+        sourceImageName: '659441282798.dkr.ecr.us-east-1.amazonaws.com/repo1'
         sourceImageTag: '$(tag)'
         repositoryName: 'repo1'
