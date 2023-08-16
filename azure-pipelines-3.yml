@@ -30,10 +30,10 @@ jobs:
     displayName: Log in to ECR
     env:
       AWS_DEFAULT_REGION: us-east-1
-      AWS_PROFILE: AWS Credential1
+      #AWS_PROFILE: AWS Credential1
     #env:
-      #AWS_ACCESS_KEY_ID: $(awsServiceConnection.AwsAccessKey)
-      #AWS_SECRET_ACCESS_KEY: $(awsServiceConnection.AwsSecretKey)
+      AWS_ACCESS_KEY_ID: $(AwsAccessKey)
+      AWS_SECRET_ACCESS_KEY: $(AwsSecretKey)
   
   - script: |
       # Tag the Docker image with ECR repository and dynamically changing tag
