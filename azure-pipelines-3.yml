@@ -26,7 +26,7 @@ jobs:
   
   - script: |
       # Log in to AWS ECR using the AWS CLI
-      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com
+      aws ecr get-login-password --region us-east-1 | docker login --username rinshad --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com
     displayName: Log in to ECR
     env:
       AWS_DEFAULT_REGION: us-east-1
