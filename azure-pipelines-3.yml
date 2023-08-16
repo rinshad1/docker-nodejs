@@ -25,7 +25,7 @@ jobs:
       dockerfile: $(Build.SourcesDirectory)/Dockerfile
       tags: |
         $(tag)
-        $(imageName):$(tag)
+       
   
   - script: |
       # Log in to AWS ECR using the AWS CLI
