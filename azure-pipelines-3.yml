@@ -27,9 +27,13 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+        arguments: |
+          --build-arg sourceImageName=$(tag)
     - task: ECRPushImage@1
       inputs:
         awsCredentials: 'AWS Credential1'
         regionName: 'us-east-1'
         imageSource: 'imagename'
+        sourceImageName: '659441282798.dkr.ecr.us-east-1.amazonaws.com'
+        sourceImageTag: '$(tag)'
         repositoryName: 'repo1'
