@@ -30,7 +30,7 @@ jobs:
     displayName: Log in to ECR
     env:
       AWS_DEFAULT_REGION: us-east-1
-    env:
+    #env:
       AWS_ACCESS_KEY_ID: $(awsServiceConnection.AwsAccessKey)
       AWS_SECRET_ACCESS_KEY: $(awsServiceConnection.AwsSecretKey)
   
