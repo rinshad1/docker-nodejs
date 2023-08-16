@@ -10,30 +10,31 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  AWS_ACCOUNT_ID : '659441282798'
+  ECR_REPOSITORY : 'repo1'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-        arguments: |
-          --build-arg sourceImageName=$(tag)
-    - task: ECRPushImage@1
-      inputs:
-        awsCredentials: 'AWS Credential1'
-        regionName: 'us-east-1'
-        imageSource: 'imagename'
-        sourceImageName: '659441282798.dkr.ecr.us-east-1.amazonaws.com/repo1'
-        sourceImageTag: '$(tag)'
-        repositoryName: 'repo1'
+jobs:
+- job: BuildAndPushToECR
+  steps:
+  - task: Docker@2
+    displayName: Build Docker image
+    inputs:
+      command: build
+      dockerfile: $(Build.SourcesDirectory)/Dockerfile
+      tags: |
+        $(tag)
+  
+  - script: |
+      # Log in to AWS ECR using the AWS CLI
+      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com
+    displayName: Log in to ECR
+  
+  - script: |
+      # Tag the Docker image with ECR repository and dynamically changing tag
+      docker tag $(tag) $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(tag)
+    displayName: Tag Docker image for ECR
+  
+  - script: |
+      # Push the Docker image to AWS ECR
+      docker push $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(tag)
+    displayName: Push Docker image to ECR
