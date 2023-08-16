@@ -32,5 +32,5 @@ stages:
         awsCredentials: 'AWS Credential1'
         regionName: 'us-east-1'
         imageSource: 'imagename'
-        sourceImageName: 'azurenodejsapp'
+        #sourceImageName: 'azurenodejsapp'
         repositoryName: 'repo1'
