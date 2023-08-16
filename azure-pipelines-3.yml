@@ -28,6 +28,11 @@ jobs:
       # Log in to AWS ECR using the AWS CLI
       aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com
     displayName: Log in to ECR
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+    env:
+      AWS_ACCESS_KEY_ID: $(awsServiceConnection.AwsAccessKey)
+      AWS_SECRET_ACCESS_KEY: $(awsServiceConnection.AwsSecretKey)
   
   - script: |
       # Tag the Docker image with ECR repository and dynamically changing tag
