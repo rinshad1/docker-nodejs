@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '01c583f9-6169-4e5f-a53f-b18cbe7682ae'
-  imageRepository: 'rinshaddockernodejs'
-  containerRegistry: 'registry001100.azurecr.io'
+  #dockerRegistryServiceConnection: '01c583f9-6169-4e5f-a53f-b18cbe7682ae'
+  imageRepository: 'repo1'
+  #containerRegistry: 'registry001100.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -20,20 +20,28 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: Build
-  displayName: Build and push stage
+- stage: Docker
+  displayName: Build & Push Docker image to AWS ECR
   jobs:
-  - job: Build
-    displayName: Build
+  - job: Build_and_Push
+    displayName: Build & Push Docker image
     pool:
-      vmImage: $(vmImageName)
+      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: Build an image
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        buildContext: '$(Build.SourcesDirectory)'
+        repository: $(DOCKER_REPOSITORY_NAME)
+
+    - task: ECRPushImage@1
+      inputs:
+        awsCredentials: 'AWS_ECR'
+        regionName: $(AWS_REGION)
+        imageSource: 'imagename'
+        sourceImageName: $(DOCKER_REPOSITORY_NAME)
+        sourceImageTag: $(Build.BuildId)
+        pushTag: latest
+        repositoryName: $(DOCKER_REPOSITORY_NAME)
