@@ -46,7 +46,7 @@ jobs:
   
   - script: |
       # Push the Docker image to AWS ECR
-      docker push  docker push public.ecr.aws/p7l6l0n6/$(ECR_REPOSITORY):$(commitId)
+      docker push public.ecr.aws/p7l6l0n6/$(ECR_REPOSITORY):$(commitId)
     displayName: Push Docker image to ECR
     
   - script: |
