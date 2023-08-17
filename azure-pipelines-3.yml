@@ -9,7 +9,8 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  commitId: $(Build.SourceVersion)
+  #tag: '$(Build.BuildId)'
   AWS_ACCOUNT_ID : '659441282798'
   ECR_REPOSITORY : 'repo1'
   imageName : abcabc
@@ -24,7 +25,7 @@ jobs:
       command: build
       dockerfile: $(Build.SourcesDirectory)/Dockerfile
       tags: |
-        $(tag)
+        $(commitId)
        
   
   - script: |
@@ -39,10 +40,10 @@ jobs:
   
   - script: |
       # Tag the Docker image with ECR repository and dynamically changing tag
-      docker tag $(imageName):$(tag) $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(tag)
+      docker tag $(imageName):$(commitId) $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(commitId)
     displayName: Tag Docker image for ECR
   
   - script: |
       # Push the Docker image to AWS ECR
-      docker push  $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(tag)
+      docker push  $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(commitId)
     displayName: Push Docker image to ECR
