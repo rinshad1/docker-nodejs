@@ -39,10 +39,10 @@ jobs:
   
   - script: |
       # Tag the Docker image with ECR repository and dynamically changing tag
-      docker tag $(imageName):$(tag)  $(imageName):$(tag)
+      docker tag $(imageName):$(tag) $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(tag)
     displayName: Tag Docker image for ECR
   
   - script: |
       # Push the Docker image to AWS ECR
-      docker push  $(imageName):$(tag)
+      docker push  $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(tag)
     displayName: Push Docker image to ECR
