@@ -14,7 +14,7 @@ variables:
   AWS_ACCOUNT_ID : '659441282798'
   ECR_REPOSITORY : 'repo2'
   imageName : abcabc
-  s3BucketName: 'bucket3131'
+  s3BucketName: 'bucket-public021'
 
 jobs:
 - job: BuildAndPushToECR
