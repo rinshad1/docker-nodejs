@@ -49,16 +49,7 @@ jobs:
       docker push  $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(commitId)
     displayName: Push Docker image to ECR
     
-  - script: |
-      # Store the tagged commit ID at an S3 bucket
-      echo $(commitId) >> imageTag.txt
-      s3Key=$(commitId)/imageTag.txt
-      aws s3 cp imageTag.txt s3://$(s3BucketName)/imageTag.txt
-    displayName: Store Commit ID in S3 Bucket 
-    env:
-      AWS_DEFAULT_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: $(AwsAccessKey)
-      AWS_SECRET_ACCESS_KEY: $(AwsSecretKey) 
+  #
 
   - powershell: |
       $tags = docker images $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY) --format "{{.Tag}}"
