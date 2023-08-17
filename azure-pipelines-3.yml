@@ -14,6 +14,7 @@ variables:
   AWS_ACCOUNT_ID : '659441282798'
   ECR_REPOSITORY : 'repo1'
   imageName : abcabc
+  s3BucketName: 'bucket3131'
 
 jobs:
 - job: BuildAndPushToECR
@@ -47,3 +48,9 @@ jobs:
       # Push the Docker image to AWS ECR
       docker push  $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY):$(commitId)
     displayName: Push Docker image to ECR
+    
+  - script: |
+      # Store the tagged commit ID at an S3 bucket
+      echo $(commitId) > imageTag.txt
+      aws s3 cp imageTag.txt s3://$(s3BucketName)/imageTag.txt
+    displayName: Store Commit ID in S3 Bucket  
