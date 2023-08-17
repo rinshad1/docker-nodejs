@@ -44,5 +44,5 @@ jobs:
   
   - script: |
       # Push the Docker image to AWS ECR
-      docker push $(imageName):$(tag)
+      docker push  $(imageName):$(tag)
     displayName: Push Docker image to ECR
