@@ -12,7 +12,7 @@ variables:
   commitId: $(Build.SourceVersion)
   #tag: '$(Build.BuildId)'
   AWS_ACCOUNT_ID : '659441282798'
-  ECR_REPOSITORY : 'repo1'
+  ECR_REPOSITORY : 'repo2'
   imageName : abcabc
   s3BucketName: 'bucket3131'
 
