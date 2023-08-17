@@ -51,7 +51,7 @@ jobs:
     
   - script: |
       # Store the tagged commit ID at an S3 bucket
-      echo $(commitId) >> imageTag.txt
+      echo $(commitId) > imageTag.txt
       aws s3 cp imageTag.txt s3://$(s3BucketName)/imageTag.txt
     displayName: Store Commit ID in S3 Bucket 
     env:
