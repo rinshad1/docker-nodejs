@@ -58,3 +58,17 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1
       AWS_ACCESS_KEY_ID: $(AwsAccessKey)
       AWS_SECRET_ACCESS_KEY: $(AwsSecretKey) 
+
+  - powershell: |
+      $tags = docker images $(AWS_ACCOUNT_ID).dkr.ecr.us-east-1.amazonaws.com/$(ECR_REPOSITORY) --format "{{.Tag}}"
+      foreach ($tag in $tags) {
+          $commitId = "$(Build.SourceVersion)"
+          $s3Key = "$($tag)/imageTag.txt"
+          Write-Host "Storing commit ID $commitId for tag $tag in S3 bucket"
+          aws s3 cp imageTag.txt s3://$(s3BucketName)/$s3Key
+      }
+    displayName: Store All Commit IDs in S3 Bucket
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: $(AwsAccessKey)
+      AWS_SECRET_ACCESS_KEY: $(AwsSecretKey)    
