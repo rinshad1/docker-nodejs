@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '811aed8e-b0d3-409a-93ee-a3742c2a291d'
+  dockerRegistryServiceConnection: 'd14563d1-8125-42d5-9aba-0168463757b8'
   imageRepository: 'rinshaddockernodejs2'
   containerRegistry: 'registry001100.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
