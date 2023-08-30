@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'd14563d1-8125-42d5-9aba-0168463757b8'
-  imageRepository: 'rinshaddockernodejs2'
+  imageRepository: 'rinshaddockernodejs-dev'
   containerRegistry: 'registry001100.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag1: 'latest'
