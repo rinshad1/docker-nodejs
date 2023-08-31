@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 4000;
 
 
 app.get('/', (req, res) => {
-	res.send("Prod Application.........0.");
+	res.send("Prod Application..........");
 })
 
 app.listen(PORT, () => console.log("App listening at port " + PORT));
